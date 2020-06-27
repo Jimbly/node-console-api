@@ -1,6 +1,6 @@
 {
   "name": "console-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Native Node.js bindings for the Win32 Console API",
   "main": "index.js",
   "author": "Jimb Esser (https://github.com/Jimbly)",
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "prebuild -t 3 -r napi",
-    "install": "prebuild-install || node-gyp rebuild"
+    "install": "prebuild-install --runtime napi || node-gyp rebuild"
   },
   "gypfile": true,
   "devDependencies": {
