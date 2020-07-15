@@ -12,18 +12,21 @@ using namespace Napi;
 
 static void consoleSetPalette(unsigned int palette[16])
 {
-	#ifdef _WIN32
-	const int color_map[16] = { 0, 4, 2, 6, 1, 5, 3, 7, 8, 12, 10, 14, 9, 13, 11, 15 };
+  #ifdef _WIN32
+  const int color_map[16] = { 0, 4, 2, 6, 1, 5, 3, 7, 8, 12, 10, 14, 9, 13, 11, 15 };
 
-	HANDLE hConsoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_SCREEN_BUFFER_INFOEX sbi = {0};
-	sbi.cbSize = sizeof(sbi);
-	GetConsoleScreenBufferInfoEx(hConsoleOut, &sbi);
-	for(int i = 0; i < 16; i++)
-		sbi.ColorTable[i] = palette[color_map[i]];
-	SetConsoleScreenBufferInfoEx(hConsoleOut, &sbi);
+  HANDLE hConsoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
+  CONSOLE_SCREEN_BUFFER_INFOEX sbi = {0};
+  sbi.cbSize = sizeof(sbi);
+  GetConsoleScreenBufferInfoEx(hConsoleOut, &sbi);
+  for(int i = 0; i < 16; i++)
+    sbi.ColorTable[i] = palette[color_map[i]];
+  // Prevent shrinking, GetConsoleScreenBufferInfoEx returns coords, SetConsoleScreenBufferInfoEx expects size?
+  sbi.srWindow.Right++;
+  sbi.srWindow.Bottom++;
+  SetConsoleScreenBufferInfoEx(hConsoleOut, &sbi);
 
-	#endif
+  #endif
 }
 
 Value setPalette(const CallbackInfo &info) {
@@ -47,9 +50,9 @@ Value setPalette(const CallbackInfo &info) {
 
   unsigned int palette[16];
   for (size_t ii = 0; ii < 16; ++ii) {
-  	Value v = arr[ii];
-  	unsigned int rgb = v.As<Number>().Uint32Value();
-	  palette[ii] = ((rgb & 0xFF0000) >> 16) | (rgb & 0x00FF00) | ((rgb & 0x0000FF) << 16);
+    Value v = arr[ii];
+    unsigned int rgb = v.As<Number>().Uint32Value();
+    palette[ii] = ((rgb & 0xFF0000) >> 16) | (rgb & 0x00FF00) | ((rgb & 0x0000FF) << 16);
   }
   consoleSetPalette(palette);
   return env.Null();
