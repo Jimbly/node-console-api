@@ -9,6 +9,6 @@ console_api.setPalette(console_api.palettes.solarized_dark);
 console_api.setTitle('New Title!');
 ```
 
-Palettes are an array of 16 RGB values in the for [0xRRGGBB, 0xRRGGBB, ...]
+Palettes are an array of 16 RGB values in the form [0xRRGGBB, 0xRRGGBB, ...]
 
 Note: though this module can be included on any platform, it currently does nothing except on Win32.
