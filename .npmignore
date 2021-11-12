@@ -6,3 +6,4 @@ npm-debug.log
 .DS_Store
 palette_import.js
 test.js
+.editorconfig
