@@ -8,7 +8,7 @@
 // Palette array in Ansi color order (*not* Win32 OS/logical order)
 
 try {
-  module.exports = require('bindings')('console-util.node');
+  module.exports = require('node-gyp-build')(__dirname);
 } catch (e) {
   module.exports = {
     setPalette: function () {},
