@@ -5,6 +5,7 @@ Usage:
 ```javascript
 const console_api = require('console-api');
 
+console_api.allocConsole(); // If you're running in a Win32 App (e.g. Electron) and don't yet have a console
 console_api.setPalette(console_api.palettes.solarized_dark);
 console_api.setTitle('New Title!');
 ```

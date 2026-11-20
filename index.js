@@ -3,6 +3,7 @@
 // Exposes:
 //   setPalette(arr)
 //   setTitle(str)
+//   allocConsole()
 //   palettes{}
 // Colors in 0xRRGGBB format
 // Palette array in Ansi color order (*not* Win32 OS/logical order)
@@ -13,6 +14,7 @@ try {
   module.exports = {
     setPalette: function () {},
     setTitle: function () {},
+    allocConsole: function () {},
   };
 }
 

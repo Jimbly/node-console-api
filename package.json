@@ -1,6 +1,6 @@
 {
   "name": "console-api",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Native Node.js bindings for the Win32 Console API",
   "main": "index.js",
   "author": "Jimb Esser (https://github.com/Jimbly)",
@@ -11,9 +11,10 @@
     "palette",
     "color"
   ],
+  "homepage": "https://github.com/Jimbly/node-console-api#readme",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Jimbly/node-console-api.git"
+    "url": "git@github.com:Jimbly/npm-publish.git"
   },
   "dependencies": {
     "node-gyp-build": "^4.8.4"
@@ -29,7 +30,7 @@
   },
   "scripts": {
     "install": "true || cd .",
-    "build": "prebuildify --napi --all",
+    "build": "prebuildify --napi",
     "test": "node-gyp configure && node-gyp build && node ./test.js"
   }
 }

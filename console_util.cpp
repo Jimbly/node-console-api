@@ -1,7 +1,9 @@
 // hello.cc
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+  #include <Windows.h>
+  #include <WinCon.h>
+  #include <io.h>
 #endif
 
 #include <napi.h>
@@ -76,9 +78,26 @@ Value setTitle(const CallbackInfo &info) {
   return env.Null();
 }
 
+Value allocConsole(const CallbackInfo &info) {
+  Env env = info.Env();
+
+  #ifdef _WIN32
+  AllocConsole();
+  {
+    FILE *ret;
+    freopen_s(&ret, "CONOUT$", "w", stdout);
+    freopen_s(&ret, "CONOUT$", "w", stderr);
+    freopen_s(&ret, "CONIN$", "r", stdin);
+  }
+  #endif
+
+  return env.Null();
+}
+
 Object Init(Env env, Object exports) {
   exports.Set(String::New(env, "setPalette"), Function::New(env, setPalette));
   exports.Set(String::New(env, "setTitle"), Function::New(env, setTitle));
+  exports.Set(String::New(env, "allocConsole"), Function::New(env, allocConsole));
   return exports;
 }
 
